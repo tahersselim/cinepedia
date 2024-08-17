@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import styles from "./Footer.module.css"; // If using CSS modules
+import styles from './Footer.module.css';
+
 
 export default function Footer() {
   return (

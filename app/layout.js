@@ -3,7 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/footer/Footer";
-import Maintenance from "./components/maintenance/maintenance";
+import Maintenance from './components/maintenance/maintenance';
+
 
 const inter = Inter({ subsets: ["latin"] });
 
