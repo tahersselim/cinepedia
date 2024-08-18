@@ -7,10 +7,10 @@ export default async function MovieDetailsPage({ params }) {
   const fanfavorite = await fanFavorite();
   // const searchmovies = await searchMovies(params.id);
 
-  // const movieDetail = searchmovies.find((movie) => movie.id === params.id); 
-    // message: 
-    // 'You have exceeded the MONTHLY quota for Requests on your current plan, BASIC.
-    //  Upgrade your plan at https://rapidapi.com/DataCrawler/api/imdb188'
+  // const movieDetail = searchmovies.find((movie) => movie.id === params.id);
+  // message:
+  // 'You have exceeded the MONTHLY quota for Requests on your current plan, BASIC.
+  //  Upgrade your plan at https://rapidapi.com/DataCrawler/api/imdb188'
 
   const fanfavoritemovieDetail = fanfavorite.find(
     (movie) => movie.id === params.id
@@ -27,7 +27,7 @@ export default async function MovieDetailsPage({ params }) {
   }
 
   // Display movie details from the week top 10 if available
- 
+
   if (movieFromTop10) {
     const imgUrl =
       movieFromTop10.primaryImage?.imageUrl || "/default-image.jpg"; // Fallback image
@@ -104,16 +104,6 @@ export default async function MovieDetailsPage({ params }) {
                   rel="noopener noreferrer"
                 >
                   IMDb
-                </a>
-              </li>
-              <li className="list-group-item">
-                <strong>Reporting Link:</strong>{" "}
-                <a
-                  href={plot.reportingLink?.url || "#"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Report Issue
                 </a>
               </li>
             </ul>
@@ -200,16 +190,6 @@ export default async function MovieDetailsPage({ params }) {
                   IMDb
                 </a>
               </li>
-              <li className="list-group-item">
-                <strong>Reporting Link:</strong>{" "}
-                <a
-                  href={plot.reportingLink?.url || "#"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Report Issue
-                </a>
-              </li>
             </ul>
           </div>
         </div>
@@ -217,7 +197,7 @@ export default async function MovieDetailsPage({ params }) {
     );
   }
 }
-  // Display movie details from the search results
+// Display movie details from the search results
 //   if (movieDetail) {
 //     const imgUrl = movieDetail.image || "/default-image.jpg"; // Fallback image
 //     const title = movieDetail.title || "No Title";
