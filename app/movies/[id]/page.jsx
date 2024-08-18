@@ -6,21 +6,11 @@ export default async function MovieDetailsPage({ params }) {
   const movies = await getWeekTop10();
   const fanfavorite = await fanFavorite();
 
-  // const searchmovies = await searchMovies(params.id);
+  const fanfavoritemovieDetail = fanfavorite.find(
+    (movie) => movie.id === params.id
+  );
 
-  // const movieDetail = searchmovies.find((movie) => movie.id === params.id);
-  // message:
-  // 'You have exceeded the MONTHLY quota for Requests on your current plan, BASIC.
-  //  Upgrade your plan at https://rapidapi.com/DataCrawler/api/imdb188'
-
-  const fanfavoritemovieDetail =
-    Array.isArray(fanfavorite) &&
-    fanfavorite.find((movie) => movie.id === params.id);
-
-
-  const movieFromTop10 =
-  Array.isArray(movies) &&
-  movies.find((movie) => movie.id === params.id);
+  const movieFromTop10 = movies.find((movie) => movie.id === params.id);
 
   if (!fanfavoritemovieDetail && !movieFromTop10) {
     return (
@@ -29,8 +19,6 @@ export default async function MovieDetailsPage({ params }) {
       </div>
     );
   }
-
-  // Display movie details from the week top 10 if available
 
   if (movieFromTop10) {
     const imgUrl =
@@ -201,35 +189,3 @@ export default async function MovieDetailsPage({ params }) {
     );
   }
 }
-// Display movie details from the search results
-//   if (movieDetail) {
-//     const imgUrl = movieDetail.image || "/default-image.jpg"; // Fallback image
-//     const title = movieDetail.title || "No Title";
-//     const releaseDate = movieDetail.year || "Unknown Year";
-//     const type = movieDetail.q || "No Type";
-//     const plot = movieDetail.stars || "No Plot Available";
-
-//     return (
-//       <div className="container my-5">
-//         <div className="row">
-//           <div className="col-md-4">
-//             <Image
-//               src={imgUrl}
-//               alt={title}
-//               width={400}
-//               height={600}
-//               className="img-fluid rounded shadow-sm"
-//             />
-//           </div>
-//           <div className="col-md-8">
-//             <h1 className="mb-3">{title}</h1>
-//             <h4 className="text-muted mb-4">
-//               {type} | {releaseDate}
-//             </h4>
-//             <p className="lead">{plot}</p>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
