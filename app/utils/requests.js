@@ -13,7 +13,7 @@ export const getWeekTop10 = async () => {
     }
   );
   const moviesList = await response.json();
-  const movies = moviesList?.data || [];
+  const movies = moviesList.data;
   return movies;
 };
 
@@ -46,6 +46,6 @@ export const fanFavorite = async () => {
     }
   );
   const moviesList = await response.json();
-  const movies = moviesList.data?.list || [];
+  const movies = moviesList.data.list;
   return movies;
 };
