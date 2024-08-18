@@ -1,4 +1,4 @@
-import { fanFavorite, getWeekTop10, searchMovies } from "@/app/utils/requests";
+import { fanFavorite, getWeekTop10 } from "@/app/utils/requests";
 import Image from "next/image";
 import "bootstrap/dist/css/bootstrap.min.css";
 
