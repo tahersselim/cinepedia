@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export default async function MovieDetailsPage({ params }) {
   const movies = await getWeekTop10();
   const fanfavorite = await fanFavorite();
+
   // const searchmovies = await searchMovies(params.id);
 
   // const movieDetail = searchmovies.find((movie) => movie.id === params.id);
@@ -12,11 +13,14 @@ export default async function MovieDetailsPage({ params }) {
   // 'You have exceeded the MONTHLY quota for Requests on your current plan, BASIC.
   //  Upgrade your plan at https://rapidapi.com/DataCrawler/api/imdb188'
 
-  const fanfavoritemovieDetail = fanfavorite.find(
-    (movie) => movie.id === params.id
-  );
+  const fanfavoritemovieDetail =
+    Array.isArray(fanfavorite) &&
+    fanfavorite.find((movie) => movie.id === params.id);
 
-  const movieFromTop10 = movies.find((movie) => movie.id === params.id);
+
+  const movieFromTop10 =
+  Array.isArray(movies) &&
+  movies.find((movie) => movie.id === params.id);
 
   if (!fanfavoritemovieDetail && !movieFromTop10) {
     return (
