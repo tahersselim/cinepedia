@@ -1,6 +1,10 @@
-
-export const reactStrictMode = true;
-export const images = {
-    domains: ['m.media-amazon.com'], 
-};
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    reactStrictMode: true,
+    images: {
+      domains: ['m.media-amazon.com'],
+    },
+  };
+  
+  export default nextConfig;
   
