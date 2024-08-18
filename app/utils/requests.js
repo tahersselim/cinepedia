@@ -6,7 +6,7 @@ export const getWeekTop10 = async () => {
     {
       method: "GET",
       headers: {
-        "x-rapidapi-key": API_KEY,
+        "x-rapidapi-key": "3a85e9d0b0msh3e6fb01f8d5873bp1ba38fjsn31e73615ace0",
         "x-rapidapi-host": "imdb188.p.rapidapi.com",
       },
     }
