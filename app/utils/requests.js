@@ -30,8 +30,21 @@ export const searchMovies = async (searchText) => {
     }
   );
   const moviesList = await response.json();
-  return moviesList.data;
+
+  return moviesList;
 };
 
-
-
+export const fanFavorite = async () => {
+  const response = await fetch(
+    "https://imdb188.p.rapidapi.com/api/v1/getFanFavorites?country=US",
+    {
+      method: "GET",
+      headers: {
+        "x-rapidapi-key": API_KEY,
+        "x-rapidapi-host": "imdb188.p.rapidapi.com",
+      },
+    }
+  );
+  const moviesList = await response.json();
+  return moviesList.data.list;
+};

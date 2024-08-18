@@ -1,4 +1,3 @@
-import Card from "@/app/components/card/Card";
 import SearchResults from "@/app/components/search-result/SearchResults";
 import { searchMovies } from "@/app/utils/requests";
 

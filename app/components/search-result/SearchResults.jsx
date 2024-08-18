@@ -25,29 +25,36 @@ export default function SearchResults({ searchResult, searchText }) {
   };
 
   return (
-    <div className="container my-3">
-      <h1>Search Results for: {searchText}</h1>
-      <div style={{ marginBottom: "10px" }}>
+    <div className="container my-5">
+      <h1 className="mb-4">Search Results for: {searchText}</h1>
+
+      <div className="mb-3">
+        <label htmlFor="sortSelect" className="form-label">Sort By</label>
         <select
+          id="sortSelect"
           className="form-select"
-          aria-label="Default select example"
+          aria-label="Sort by"
           onChange={(e) => filterMovies(e.target.value)}
         >
-          <option value="">Sort By</option>
+          <option value="">Select...</option>
           <option value="year">Release Year</option>
         </select>
       </div>
 
-      <div className="d-flex flex-wrap gap-3">
+      <div className="row g-4">
         {filteredMovies && filteredMovies.length > 0 ? (
           filteredMovies.map((movie) => {
             const imgUrl = movie.image;
             const id = movie.id;
             const title = movie.title;
-            return <Card key={id} imageUrl={imgUrl} id={id} title={title} />;
+            return (
+              <div className="col-12 col-md-6 col-lg-4" key={id}>
+                <Card imageUrl={imgUrl} id={id} title={title} />
+              </div>
+            );
           })
         ) : (
-          <p>No results found.</p>
+          <div className="alert alert-info">No results found.</div>
         )}
       </div>
     </div>
