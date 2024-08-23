@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -24,15 +25,13 @@ export default function Header() {
           className="navbar-brand fs-3 fw-bold text-light text-uppercase navbar-brand-hover"
           href="/"
         >
-          <img
-            src="./cinepedia-transparent.png"
-            alt=""
-            style={{
-              width: "15vh",
-              height: "70px",
-              objectFit: "fill",
-            }}
-          /> Cinepedia
+          <Image
+            src="/cinepedia-transparent.png"
+            alt="log"
+            width={85}
+            height={55}
+          />{" "}
+          Cinepedia
         </Link>
         <form className="d-flex" role="search" onSubmit={handleSearchSubmit}>
           <input

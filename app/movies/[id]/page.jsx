@@ -1,30 +1,23 @@
-import { fanFavorite, getWeekTop10 } from "@/app/utils/requests";
 import Image from "next/image";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Data } from "@/app/data/data";
 
-export default async function MovieDetailsPage({ params }) {
-  let movies, fanfavorite;
-  
-  try {
-    movies = await getWeekTop10();
-    fanfavorite = await fanFavorite();
-  } catch (error) {
-    console.error('Error fetching movie data:', error);
-    return (
-      <div className="container text-center my-5">
-        <h2>Error loading movie details</h2>
-      </div>
-    );
+const getData = () => {
+  const data = Data();
+
+  if (data) {
+    return data;
   }
+  return null;
+};
 
-  const fanfavoritemovieDetail = fanfavorite.find(
-    (movie) => movie.id === params.id
-  );
-  const movieFromTop10 = movies.find((movie) => movie.id === params.id);
+export default function MovieDetailsPage({ params }) {
+  const data = getData();
 
-  const movieDetails = movieFromTop10 || fanfavoritemovieDetail;
+  const topmovieDetail = data.find((data) => data.id === params.id);
+  console.log(topmovieDetail);
 
-  if (!movieDetails) {
+  if (!topmovieDetail) {
     return (
       <div className="container text-center my-5">
         <h2>Movie not found</h2>
@@ -32,15 +25,19 @@ export default async function MovieDetailsPage({ params }) {
     );
   }
 
-  const imgUrl = movieDetails.primaryImage?.imageUrl || "/default-image.jpg"; // Fallback image
-  const title = movieDetails.originalTitleText?.text || "No Title";
-  const ratingSummary = movieDetails.ratingsSummary || {};
-  const releaseDate = movieDetails.releaseDate || {};
-  const type = movieDetails.titleType?.text || "No Type";
-  const plot = movieDetails.plot || {};
-  const country = movieDetails.releaseDate?.country?.text || "Unknown Country";
-  const Rating = movieDetails.titleCertificate || {};
-  const currentRank = movieDetails.chartMeterRanking?.currentRank || "Not Ranked";
+  const imgUrl = topmovieDetail.big_image;
+  const title = topmovieDetail.title;
+  const rating = topmovieDetail.rating;
+  const rank = topmovieDetail.rating;
+
+  const releaseDate = topmovieDetail.year || {};
+  const type = topmovieDetail.genre[0] || "No Type";
+  const plot = topmovieDetail.description || {};
+  const country =
+    topmovieDetail.releaseDate?.country?.text || "Unknown Country";
+  const Rating = topmovieDetail.titleCertificate || {};
+  const genre = topmovieDetail.genre || "No Genre";
+  const imdbLink = topmovieDetail.imdb_link || "Not Ranked";
 
   return (
     <div className="container my-5">
@@ -57,32 +54,35 @@ export default async function MovieDetailsPage({ params }) {
         <div className="col-md-8">
           <h1 className="mb-3">{title}</h1>
           <h4 className="text-muted mb-4">
-            {type} | {releaseDate.day}.{releaseDate.month}.{releaseDate.year}
+            {type} | {releaseDate}
           </h4>
-          <p className="lead">
-            {plot.plotText?.plainText || "No Plot Available"}
-          </p>
+          <p className="lead">{plot || "No Plot Available"}</p>
 
           <h2 className="mt-4">Ratings Summary</h2>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
-              <strong>Aggregate Rating:</strong>{" "}
-              {ratingSummary.aggregateRating || "No Rating"}
+              <strong>Aggregate Rating:</strong> {rating || "No Rating"}
             </li>
             <li className="list-group-item">
-              <strong>Top Ranking:</strong>{" "}
-              {ratingSummary.topRanking?.rank
-                ? `#${ratingSummary.topRanking.rank}`
-                : "Not Ranked"}
+              <strong>Top Ranking:</strong> {rank ? rank : "Not Ranked"}
             </li>
             <li className="list-group-item">
-              <strong>Vote Count:</strong>{" "}
-              {ratingSummary.voteCount?.toLocaleString() || "No Vote Count"}
+              <strong>Vote Count:</strong> {"No Vote Count"}
             </li>
           </ul>
 
           <h3 className="mt-4">Additional Information</h3>
           <ul className="list-group list-group-flush">
+            <li className="list-group-item">
+              <strong>genre: </strong>
+              {""}
+              {genre.map((gen, index) => (
+                <span key={index}>
+                  {gen}
+                  {index < genre.length - 1 && <strong> | </strong>}
+                </span>
+              ))}
+            </li>
             <li className="list-group-item">
               <strong>Country:</strong> {country}
             </li>
@@ -94,12 +94,12 @@ export default async function MovieDetailsPage({ params }) {
               {Rating.certificateCountry?.text || "No Certificate Country"}
             </li>
             <li className="list-group-item">
-              <strong>Current Rank:</strong> {currentRank}
+              <strong>Current Rank:</strong> {rank}
             </li>
             <li className="list-group-item">
               <strong>Link to IMDb:</strong>{" "}
               <a
-                href={plot.correctionLink?.url || "#"}
+                href={imdbLink || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
               >

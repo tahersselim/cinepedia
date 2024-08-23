@@ -1,6 +1,6 @@
 const API_KEY = process.env.NEXT_PUBLIC_KEY;
 
-export const getWeekTop10 = async () => {
+export const getTop100 = async () => {
   try {
     const response = await fetch(
       "https://imdb188.p.rapidapi.com/api/v1/getWeekTop10",
@@ -27,8 +27,6 @@ export const getWeekTop10 = async () => {
     return []; // Return an empty array in case of an error
   }
 };
-;
-
 export const fanFavorite = async () => {
   try {
     const response = await fetch(
@@ -47,11 +45,11 @@ export const fanFavorite = async () => {
     }
 
     const data = await response.json();
-    const movieList = data?.data?.list ?? []; 
+    const movieList = data?.data?.list ?? [];
 
-    return Array.isArray(movieList) ? movieList : []; 
+    return Array.isArray(movieList) ? movieList : [];
   } catch (error) {
     console.error("Failed to fetch fan favorites:", error);
-    return []; 
+    return [];
   }
 };
